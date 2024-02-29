@@ -1,7 +1,7 @@
 //Backend/src/controllers/user.controllers.js
 import { asyncHandler } from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/apiError.js";
-import { User } from "../models/user.models.js"
+import { User } from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken";
@@ -25,7 +25,7 @@ const generateAccessAndRefreshTokens = async(userId) => {
 const registerUser = asyncHandler( async (req, res) => {
 
     //user datails
-
+    console.log("req.body: ", req.body);
     const {fullName, username, email, password}= req.body
     // console.log(`email: ${email}, username: ${username}`);
     // console.log(req.body);
