@@ -1,30 +1,49 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import './App.css';
+import { login, logout } from './store/authSlice';
+import { Footer, Header } from './components';
+import { Outlet } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
+    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
 
-  const [username, setUsername] = useState("")
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('/api/v1/users/current-user');
+                const userData = response.data; // Assuming userData is a property of the response data
+                console.log('userData: ', userData);
+                if (userData) {
+                    dispatch(login(userData)); // Dispatch the login action with userData
+                } else {
+                    dispatch(logout());
+                }
+            } catch (error) {
+                console.log('Error in app.jsx: ', error);
+                // Handle error
+            }
+            setLoading(false);
+        };
 
-  useEffect( () => {
-    axios.get('/api/v1/login')
-    .then( (response) => {
-      setUsername(response.data)
-      console.log("response: ",response);
-      console.log("response.data: ",response.data);
-    })
-    .catch( (error) => {
-      console.log("check axios in App.jsx :: error :: ",error);
-    })
-  }, [])
-  
-  return (
-    <>
-      <h1>FlakeTube</h1>
-      <p>Username: {username}</p>
+        fetchData();
+    }, []);
 
-    </>
-  )
+    return !loading ? (
+        <div className="min-h-screen bg-gray-100">
+            <Header />
+            <main className="container mx-auto px-4">
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
+    ) : (
+        <div className="min-h-screen flex items-center justify-center">
+            <p className="text-xl font-semibold text-gray-700">Loading...</p>
+        </div>
+    );
 }
 
-export default App
+export default App;
