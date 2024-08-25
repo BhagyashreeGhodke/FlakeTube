@@ -1,1 +1,1 @@
-export const DB_NAME= "OnlineGamingPlatform"
+export const DB_NAME= "FlakeTube"
