@@ -15,15 +15,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Router>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Signup />} />
-            <Route path="/chat-messages" element={<Chat />} />
-            <Route path="/chat-window" element={<ChatWindow />} />
-            <Route path="/dummy-cash" element={<DummyCurrencyComponent />} />
             
           </Route>
         </Routes>

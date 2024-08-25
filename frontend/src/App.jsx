@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import './App.css';
 import { login, logout } from './store/authSlice';
-import { Footer, Header } from './components';
+
 import { Outlet } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ function App() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/v1/users/current-user');
+                const response = await axios.get('/api/users/current-user');
                 const userData = response.data; // Assuming userData is a property of the response data
                 console.log('userData: ', userData);
                 if (userData) {
